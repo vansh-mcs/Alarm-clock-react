@@ -8,6 +8,7 @@ export const AlarmContext = createContext();
 function ContextAlarm({ children }) {
   const [hourDigital, setHourDigital] = useState("");
   const [minutesDigital, setMinutesDigital] = useState("");
+  const [secondsDigital, setSecondsDigital] = useState("");
   const [amPm, setAmPm] = useState("");
   const [dayNow, setDayNow] = useState("");
   const [monthNow, setMonthNow] = useState("");
@@ -21,6 +22,7 @@ function ContextAlarm({ children }) {
 
       let HH = date.getHours(),
         MM = date.getMinutes(),
+        SS = date.getSeconds(),
         day = date.getDate(),
         month = date.getMonth(),
         year = date.getFullYear(),
@@ -39,6 +41,7 @@ function ContextAlarm({ children }) {
 
       setHourDigital(HH);
       setMinutesDigital(MM);
+      setSecondsDigital(SS);
       setAmPm(ampm);
       setDayNow(day);
       setMonthNow(months[month]);
@@ -46,7 +49,9 @@ function ContextAlarm({ children }) {
     }, 1000);
   }, []);
 
-  if (alarmTime === `${hourDigital}:${minutesDigital} ${amPm}`) {
+  if (
+    alarmTime === `${hourDigital}:${minutesDigital}:${secondsDigital} ${amPm}`
+  ) {
     alarm.play();
     alarm.loop = true;
   }
